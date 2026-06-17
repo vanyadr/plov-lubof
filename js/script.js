@@ -2,6 +2,34 @@ import Swiper from "../assets/libraries/swiper/swiper.min.mjs";
 import Navigation from "../assets/libraries/swiper/modules/navigation.min.mjs";
 import Autoplay from "../assets/libraries/swiper/modules/autoplay.min.mjs";
 
+const toggleAccordion = function () {
+    const items = document.querySelectorAll('.accordion-item');
+
+    if (items.length > 0 && window.innerWidth > 1024) {
+        items.forEach((item) => {
+            const btn = item.querySelector('.accordion-header');
+
+            const closedHeight = btn.scrollHeight;
+            item.style.height = closedHeight + 'px';
+
+            item.addEventListener('mouseenter', function () {
+                const correctContent = this.querySelector('.accordion-content');
+                const openedHeight = correctContent.scrollHeight;
+
+                this.classList.add('opened');
+                this.style.height = openedHeight + 'px';
+            });
+
+            item.addEventListener('mouseleave', function () {
+                const correctHeader = this.querySelector('.accordion-header');
+                const closedHeight = correctHeader.scrollHeight;
+
+                this.classList.remove('opened');
+                this.style.height = closedHeight + 'px';
+            });
+        });
+    }
+};
 const toggleBurger = () => {
    const btn = document.querySelector("#open-burger");
    const menu = document.querySelector("#burger");
@@ -21,7 +49,7 @@ const changeHeaderOnScroll = () => {
    const header = document.querySelector("header");
 
    document.addEventListener("scroll", () => {
-      if (window.pageYOffset > document.documentElement.clientHeight - header.offsetHeight) {
+      if (window.pageYOffset > 100) {
          header.classList.add("scrolled");
       } else {
          header.classList.remove("scrolled");
@@ -60,16 +88,6 @@ const initSlider = () => {
       centeredSlides: true,
    });
 };
-const scrollBg = () => {
-   const bg = document.querySelector("#screen-bg");
-   bg.style.top = 0;
-
-   document.addEventListener("scroll", () => {
-      if (window.pageYOffset <= document.documentElement.clientHeight) {
-         bg.style.top = `${window.pageYOffset}px`;
-      }
-   });
-};
 const appearCardImg = () => {
    const card = document.querySelector("#card");
    const cardImg = document.querySelector("#card-img");
@@ -83,6 +101,7 @@ const appearCardImg = () => {
 
 document.addEventListener("DOMContentLoaded", () => {
    changeHeaderOnScroll();
+   toggleAccordion();
    toggleBurger();
    initSlider();
    scrollBg();
