@@ -30,6 +30,45 @@ const toggleAccordion = function () {
         });
     }
 };
+const initSlider = () => {
+    const swiper = new Swiper(".swiper", {
+        modules: [Navigation, Autoplay],
+        slidesPerView: 2,
+        speed: 400,
+        spaceBetween: 16,
+        autoplay: {
+            delay: 3000,
+            pauseOnMouseEnter: true,
+        },
+        navigation: {
+            nextEl: ".swiper-button-next",
+            prevEl: ".swiper-button-prev",
+        },
+        breakpoints: {
+            769: {
+                slidesPerView: 3,
+                spaceBetween: 16,
+            },
+            1401: {
+                slidesPerView: 4.5,
+                spaceBetween: 24,
+            },
+        },
+        loop: true,
+        centeredSlides: true,
+    });
+};
+const changeHeaderOnScroll = () => {
+   const header = document.querySelector("header");
+
+   document.addEventListener("scroll", () => {
+      if (window.pageYOffset > 100) {
+         header.classList.add("scrolled");
+      } else {
+         header.classList.remove("scrolled");
+      }
+   });
+};
 const toggleBurger = () => {
    const btn = document.querySelector("#open-burger");
    const menu = document.querySelector("#burger");
@@ -45,65 +84,10 @@ const toggleBurger = () => {
       if (e.target == menu) menu.classList.remove("active");
    });
 };
-const changeHeaderOnScroll = () => {
-   const header = document.querySelector("header");
-
-   document.addEventListener("scroll", () => {
-      if (window.pageYOffset > 100) {
-         header.classList.add("scrolled");
-      } else {
-         header.classList.remove("scrolled");
-      }
-   });
-};
-const initSlider = () => {
-   const swiper = new Swiper(".swiper", {
-      modules: [Navigation, Autoplay],
-      slidesPerView: 2,
-      speed: 400,
-      spaceBetween: 16,
-      autoplay: {
-         delay: 3000,
-         pauseOnMouseEnter: true,
-      },
-      navigation: {
-         nextEl: ".swiper-button-next",
-         prevEl: ".swiper-button-prev",
-      },
-      breakpoints: {
-         769: {
-            slidesPerView: 3.3,
-            spaceBetween: 16,
-         },
-         1025: {
-            slidesPerView: 4,
-            spaceBetween: 24,
-         },
-         1801: {
-            slidesPerView: 5.5,
-            spaceBetween: 24,
-         },
-      },
-      loop: true,
-      centeredSlides: true,
-   });
-};
-const appearCardImg = () => {
-   const card = document.querySelector("#card");
-   const cardImg = document.querySelector("#card-img");
-
-   document.addEventListener("scroll", () => {
-      if (window.pageYOffset - card.offsetTop > card.offsetHeight - card.offsetHeight * 1.1) {
-         cardImg.classList.add("active");
-      }
-   });
-};
 
 document.addEventListener("DOMContentLoaded", () => {
    changeHeaderOnScroll();
    toggleAccordion();
-   toggleBurger();
    initSlider();
-   scrollBg();
-   appearCardImg();
+   toggleBurger();
 });
