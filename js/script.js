@@ -70,18 +70,19 @@ const changeHeaderOnScroll = () => {
    });
 };
 const toggleBurger = () => {
-   const btn = document.querySelector("#open-burger");
-   const menu = document.querySelector("#burger");
-   const closer = document.querySelector("#close-burger");
+   const btn = document.querySelector(".header__burger");
+   const menu = document.querySelector(".burger");
+   const closer = document.querySelector(".header__closer");
 
    btn.addEventListener("click", () => {
       menu.classList.add("active");
+      btn.classList.add("hidden");
+      closer.classList.add("active");
    });
    closer.addEventListener("click", () => {
       menu.classList.remove("active");
-   });
-   menu.addEventListener("click", (e) => {
-      if (e.target == menu) menu.classList.remove("active");
+      btn.classList.remove("hidden");
+      closer.classList.remove("active");
    });
 };
 
